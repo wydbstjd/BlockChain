@@ -1,0 +1,31 @@
+<!doctype>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.2.5/dist/web3.min.js"></script>
+<!-- script src="https://cdn.jsdelivr.net/npm/web3@0.20.5/dist/web3.min.js"></script -->
+<script type="text/javascript">
+    var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8345"));
+
+    function displayHello() {
+        var web3version = web3.version;  //web3.version.api
+
+        var shelloContract = new web3.eth.Contract([{"inputs":[],"name":"sayHello","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"pure","type":"function"}], '0xB6D1062172A9675Cc3DFc140323B8b99D02a25F7');
+        shelloContract.methods.sayHello().call().then(function(str) {
+            document.getElementById('sayhello').innerText = "The message from blockchain: " + str;
+        });
+        document.getElementById('web3ver').innerText = '*web3 version: '+web3version;
+        web3.eth.getCoinbase().then(function(coin) {
+            document.getElementById('web3coinbase').innerText = 'coinbase: ' + coin;
+            });
+    }
+</script>
+</head>
+<body>
+    <h1>Hello</h1>
+    <button type="button" onClick="displayHello();">Display Hello</button>
+    <div></div>
+    <div id="sayhello"></div>
+    <div id="web3ver"></div>
+    <div id="web3coinbase"></div>
+</body>
+</html>
